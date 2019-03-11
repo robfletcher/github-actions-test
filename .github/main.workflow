@@ -1,15 +1,15 @@
 workflow "env var passing" {
   on = "push"
-  resolves = ["sh-1"]
+  resolves = ["echo message"]
 }
 
-action "sh" {
-  uses = "sh"
-  args = "export MESSAGE=\"o hai\""
+action "export message" {
+  uses = "actions/bin/sh@master"
+  args = ["export MESSAGE=\"o hai\""]
 }
 
-action "sh-1" {
-  uses = "sh"
-  needs = ["sh"]
+action "echo message" {
+  uses = "actions/bin/sh@master"
+  needs = ["export message"]
   args = "echo $MESSAGE"
 }
